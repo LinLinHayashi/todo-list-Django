@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+{% extends 'main/base.html' %}
+
+{% block title %}
+  View
+{% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <form method="post" action="/view/">
+      {% csrf_token %}
+      {% for td in user.todolist.all %}
+        <div class="delete-group">
+          <p><a href="/{{td.id}}">{{td.name}}</a></p>
+          <button type="submit" name="delete" value="{{td.id}}" class="btn btn-success delete-button" onclick="return confirm('Are you sure you want to delete this?')">Delete</button>
+        </div>
+      {% endfor %}
+    </form>
+  {% else %}
+    <p>Please Login <a href="/login">here</a> first.</p>
+  {% endif %}
+{% endblock %}

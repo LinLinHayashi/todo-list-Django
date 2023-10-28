@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+{% extends 'main/base.html' %}
+
+<!-- To use Django crispy forms. -->
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Create an Account
+{% endblock %}
+
+{% block content %}
+  <form method="POST" class="form-group">
+    {% csrf_token %}
+
+    <!-- To use Django crispy forms. -->
+    {{form|crispy}}
+
+    <button type="submit" class="btn btn-success">
+      Register
+    </button>
+  </form>
+{% endblock %}

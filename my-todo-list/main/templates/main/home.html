@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+
+<!-- This inherits "main/base.html" --> 
+{% extends 'main/base.html' %}
+
+{% block title %}
+  Home
+{% endblock %}
+
+<!-- This will replace the "content" block with "<h1>Home page</h1>" in the "base.html" file. -->
+{% block content %}
+
+  <!-- If the user has logged in. -->
+  {% if user.is_authenticated %}
+
+    <h4>Thank you for using My To-do List. Here is a simple tutorial for you to start.</h4>
+    <ul>
+      <li>Choose Create from the left to create your new to-do list.</li>
+      <li>Choose View from the left to look up your existing to-do list.</li>
+    </ul>
+
+  <!-- If the user hasn't logged in. -->
+  {% else %}
+    <p>Please Login <a href="/login">here</a> first.</p>
+
+  {% endif %}
+{% endblock %}
+

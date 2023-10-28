@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+{% extends 'main/base.html' %}
+
+{% block title %}
+  View List
+{% endblock %}
+
+{%block content %}
+
+  <!-- If the user has logged in. -->
+  {% if user.is_authenticated %}
+
+    <h1>{{ls.name}}</h1>
+    <form method="post" action="#">
+      {% csrf_token %}
+
+      <!-- This is how Python code runs in an HTML file. -->
+      {% for item in ls.item_set.all %}
+
+        <div class="input-group mb-3">
+
+          <!-- This is the checkbox prepended to the following textbox. -->
+          <div class="input-group-text">
+            {% if item.complete == True %}
+              <input type="checkbox" value="clicked" name="c{{item.id}}" class="form-check-input mt-0" checked/>
+            {% else %}
+              <input type="checkbox" value="clicked" name="c{{item.id}}" class="form-check-input mt-0"/>
+            {% endif %}
+          </div>
+
+          <!-- This is the textbox. -->
+          <input type="text" value="{{item.text}}" class="form-control"/>
+
+        </div>
+        {% endfor %}
+
+      <div class="input-group mb-3">
+
+        <!-- This is the button prepended to the following textbox. -->
+        <div class="input-group-prepend">
+          <button type="submit" name="newItem" value="newItem" class="btn btn-success">Add Item</button>
+        </div>
+
+        <!-- This is the textbox. -->
+        <input type="text" name="new" class="form-control"/>
+
+      </div>
+      <button type="submit" name="save" value="save" class="btn btn-success">Save</button>
+    </form>
+
+  <!-- If the user hasn't logged in. -->
+  {% else %}
+    <p>Login <a href="/login">here</a>.</p>
+    
+  {% endif %}
+{% endblock %}
